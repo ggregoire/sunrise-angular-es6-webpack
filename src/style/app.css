@@ -1,0 +1,139 @@
+*, :before, :after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow: hidden;
+}
+
+ul {
+  list-style: none;
+  text-align: center;
+}
+
+.add-event {
+  position: absolute;
+  top: 8px;
+  left: 3px;
+  background: rgb(255,82,82);
+  color: #fff;
+  opacity: 0.9;
+}
+
+.fixed-header {
+  display: flex;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 50px;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.day-label {
+  flex: 1;
+}
+
+.main {
+  position: relative;
+  display: flex;
+  overflow: auto;
+}
+
+.sidebar {
+  display: flex;
+  width: 50px;
+  flex-direction: column;
+  height: 1056px;
+}
+
+.hour-label {
+  flex: 1;
+  margin-top: -12px;
+}
+
+.hour-label:first-child {
+  visibility: hidden;
+}
+
+.wrapper {
+  display: flex;
+  position: relative;
+  flex: 1;
+  height: 1056px;
+}
+
+.background.columns-container {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.background.columns-container .column {
+  flex: 1;
+  border: 0 solid #ebeff3;
+  border-left-width: 1px;
+}
+
+.background.rows-container {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.background.rows-container .row {
+  flex: 1;
+  border: 0 solid rgba(217,217,217,.7);
+  border-bottom-width: 1px;
+}
+
+.background.rows-container .row:nth-child(odd) {
+  border-bottom-style: dotted;
+}
+
+.days {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.day {
+  flex: 1;
+  position: relative;
+  margin: 0 18px 0 4px;
+}
+
+.event {
+  width: 100%;
+  position: absolute;
+  padding: 1px 3px;
+  margin-top: -1px;
+  border-left: 2px solid #1fc8db;
+  overflow: hidden;
+  color: #fff;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: left;
+  opacity: 0.9;
+  box-shadow: -2px -2px 0 0 #fff, -2px 2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff;
+}
+
+.event__title {
+  font-weight: bold;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  opacity: 1;
+}

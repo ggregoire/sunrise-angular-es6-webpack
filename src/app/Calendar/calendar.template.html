@@ -1,0 +1,28 @@
+<button ng-click="vm.addEvent()" class="add-event button is-primary" ng-bind="::'add'"></button>
+<ul class="fixed-header">
+  <li ng-repeat="day in ::vm.calendar.days" class="day-label" ng-bind="::day.label"></li>
+</ul>
+<main class="main" ng-style="::{ height: vm.mainHeight }">
+  <ul class="sidebar">
+    <li ng-repeat="hour in ::vm.calendar.hours" class="hour-label" ng-bind="::hour.label"></li>
+  </ul>
+  <div class="wrapper">
+    <ul class="background columns-container">
+      <li ng-repeat="day in ::vm.calendar.days" class="column"></li>
+    </ul>
+    <ul class="background rows-container">
+      <li ng-repeat="halfHour in ::vm.calendar.halfHours" class="row"></li>
+    </ul>
+    <ul class="days">
+      <li ng-repeat="day in ::vm.calendar.days" class="day">
+        <div ng-repeat="event in day.events | orderBy:vm.calendar.sortPredicates"
+             class="event notification is-success"
+             ng-style="{ top: event.top, height: event.height, width: event.width, left: event.left }"
+             title="{{ ::event.title }}">
+          <div class="event__title" ng-bind="::event.title"></div>
+          <time class="event__time" ng-bind="::event.time"></time>
+        </div>
+      </li>
+    </ul>
+  </div>
+</main>

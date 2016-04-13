@@ -16,7 +16,7 @@
     <ul class="days">
       <li ng-repeat="day in ::vm.calendar.days" class="day">
         <div ng-repeat="event in day.events | orderBy:vm.calendar.sortPredicates"
-             class="event notification is-success"
+             class="event"
              ng-style="{ top: event.top, height: event.height, width: event.width, left: event.left }"
              title="{{ ::event.title }}">
           <div class="event__title" ng-bind="::event.title"></div>

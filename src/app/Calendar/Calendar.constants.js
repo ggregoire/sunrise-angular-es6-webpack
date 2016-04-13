@@ -1,26 +1,26 @@
 export default {
   BREAKFAST: {
-    EVENTS: ['Brunch', 'Meeting', 'Running', 'Sleep late'],
+    ACTIVITIES: ['Brunch', 'Meeting', 'Running', 'Sleep late'],
     START: 6,
     END: 11
   },
   LUNCH: {
-    EVENTS: ['Burger', 'Interview', 'Pizza', 'Sushis'],
+    ACTIVITIES: ['Burger', 'Interview', 'Pizza', 'Sushis'],
     START: 10,
     END: 15
   },
   AFTERNOON: {
-    EVENTS: ['Call', 'Deadline', 'Flight', 'Meeting', 'Tennis', 'Swimming'],
+    ACTIVITIES: ['Call', 'Deadline', 'Flight', 'Meeting', 'Tennis', 'Swimming'],
     START: 14,
     END: 19
   },
   EVENING: {
-    EVENTS: ['Buy flowers', 'Cocktail', 'Dinner', 'Gym', 'Movies'],
+    ACTIVITIES: ['Buy flowers', 'Cocktail', 'Dinner', 'Gym', 'Movies'],
     START: 18,
     END: 25
   },
   NIGHT: {
-    EVENTS: ['Party', 'Night club', 'Festival'],
+    ACTIVITIES: ['Party', 'Night club', 'Festival'],
     START: -1,
     END: 7
   },

@@ -42,10 +42,10 @@ describe('Calendar service', () => {
   it('should find activities which are available at the hour of the event', () => {
     const { BREAKFAST, LUNCH, AFTERNOON, EVENING, NIGHT } = constants;
 
-    expect(Calendar.getAvailableActivities(10)).toEqual(BREAKFAST.EVENTS);
-    expect(Calendar.getAvailableActivities(13)).toEqual(LUNCH.EVENTS);
-    expect(Calendar.getAvailableActivities(16)).toEqual(AFTERNOON.EVENTS);
-    expect(Calendar.getAvailableActivities(20)).toEqual(EVENING.EVENTS);
-    expect(Calendar.getAvailableActivities(4)).toEqual(NIGHT.EVENTS);
+    expect(Calendar.getAvailableActivities(10)).toEqual(BREAKFAST.ACTIVITIES);
+    expect(Calendar.getAvailableActivities(13)).toEqual(LUNCH.ACTIVITIES);
+    expect(Calendar.getAvailableActivities(16)).toEqual(AFTERNOON.ACTIVITIES);
+    expect(Calendar.getAvailableActivities(20)).toEqual(EVENING.ACTIVITIES);
+    expect(Calendar.getAvailableActivities(4)).toEqual(NIGHT.ACTIVITIES);
   });
 });

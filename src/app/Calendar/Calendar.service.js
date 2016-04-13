@@ -59,17 +59,11 @@ export default class Calendar {
   }
 
   getAvailableActivities(hour) {
-    if (_inRange(hour, BREAKFAST.START, BREAKFAST.END)) return BREAKFAST.EVENTS;
-    if (_inRange(hour, LUNCH.START, LUNCH.END))         return LUNCH.EVENTS;
-    if (_inRange(hour, AFTERNOON.START, AFTERNOON.END)) return AFTERNOON.EVENTS;
-    if (_inRange(hour, EVENING.START, EVENING.END))     return EVENING.EVENTS;
-    return NIGHT.EVENTS;
+    return _find([BREAKFAST, LUNCH, AFTERNOON, EVENING, NIGHT], x => _inRange(hour, x.START, x.END)).ACTIVITIES;
   }
 
   areOverlapping(eventA, eventB) {
-    return eventA.startTime >= eventB.startTime && eventA.startTime <= eventB.endTime ||
-      eventA.endTime >= eventB.startTime && eventA.endTime <= eventB.endTime ||
-      eventA.startTime <= eventB.startTime && eventA.endTime >= eventB.endTime;
+    return eventA.startTime <= eventB.endTime && eventA.endTime >= eventB.startTime;
   }
 
   /**

@@ -5,7 +5,6 @@ import Calendar from './Calendar.service';
 export default class CalendarController {
   constructor(Calendar) {
     this.calendar = Calendar;
-    this.mainHeight = `${window.innerHeight - 51}px`;
   }
 
   addEvent() {

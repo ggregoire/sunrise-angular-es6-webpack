@@ -43,6 +43,7 @@ ul {
   position: relative;
   display: flex;
   overflow: auto;
+  height: calc(100vh - 51px);
 }
 
 .sidebar {

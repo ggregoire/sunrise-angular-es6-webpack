@@ -2,7 +2,7 @@
 <ul class="fixed-header">
   <li ng-repeat="day in ::vm.calendar.days" class="day-label" ng-bind="::day.label"></li>
 </ul>
-<main class="main" ng-style="::{ height: vm.mainHeight }">
+<main class="main">
   <ul class="sidebar">
     <li ng-repeat="hour in ::vm.calendar.hours" class="hour-label" ng-bind="::hour.label"></li>
   </ul>

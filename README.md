@@ -8,7 +8,7 @@ This project uses npm, angular, lodash, bulma, babel, webpack, karma and jasmine
 
 ## Technical notes
 * ES6 with babel (services & controllers with classes, imports/exports, destructuring, arrow functions...)
-* Unit tests for each component (service, controller and directive)
+* Unit tests for each component (controller and directive)
 * Code coverage when tests are run
 * Design using flexbox
 

@@ -1,35 +1,83 @@
 import angular from 'angular';
+import _find from 'lodash/find';
+import _inRange from 'lodash/inRange';
+import _padStart from 'lodash/padStart';
+import _random from 'lodash/random';
+import _range from 'lodash/range';
+import _sample from 'lodash/sample';
+import _some from 'lodash/some';
+import _sortBy from 'lodash/sortBy';
+import _uniqueId from 'lodash/uniqueId';
+import _union from 'lodash/union';
 
-import Calendar from './Calendar.service';
+import constants from './Calendar.constants';
+
+const { BREAKFAST, LUNCH, AFTERNOON, EVENING, NIGHT, DAYS, HOURS } = constants;
 
 export default class CalendarController {
-  constructor(Calendar) {
-    this.calendar = Calendar;
+  constructor() {
+    this.days = DAYS.map(day => ({ label: day, events: [] }));
+    this.hours = HOURS.map(hour => ({ label: hour }));
+    this.halfHours = _range(0, HOURS.length * 2);
+    this.sortPredicates = ['startTime', 'endTime', 'id'];
   }
 
   addEvent() {
-    const day = this.calendar.getRandomDay();
-    const newEvent = this.calendar.createRandomEvent();
-
-    newEvent.top = this.getEventTop(newEvent);
-    newEvent.height = this.getEventHeight(newEvent);
-    newEvent.time = this.formatTime(newEvent)
-
-    day.events.push(newEvent);
-
-    this.resizeOverlappingEvents(this.calendar.getOverlappingEvents(day.events));
+    const day = this.getRandomDay();
+    day.events.push(this.createRandomEvent());
+    this.resizeOverlappingEvents(this.getOverlappingEvents(day.events));
   }
 
-  getEventTop({ hour, minute }) {
+  getRandomDay() {
+    return _sample(this.days);
+  }
+
+  createRandomEvent() {
+    const randomHour = _random(0, 22);
+    const randomMinute = _random(0, 59);
+    const randomDuration = _random(1, _find([3, 2, 1], hour => randomHour + hour <= 23));
+    const randomActivity = _sample(this.getAvailableActivities(randomHour));
+
+    return this.createEvent(randomHour, randomMinute, randomDuration, randomActivity);
+  }
+
+  createEvent(hour, minute, duration, title) {
+    return {
+      id: parseInt(_uniqueId),
+      hour: hour,
+      minute: minute,
+      duration: duration,
+      title: title,
+      startTime: this.getStartTime(hour, minute),
+      endTime: this.getEndTime(hour, minute, duration),
+      top: this.getEventTop(hour, minute),
+      height: this.getEventHeight(duration),
+      time: this.formatTime(hour, minute)
+    };
+  }
+
+  getStartTime(hour, minute) {
+    return parseInt(`${hour}${this.get2DigitsFormat(minute)}`);
+  }
+
+  getEndTime(hour, minute, duration) {
+    return parseInt(`${hour + duration}${this.get2DigitsFormat(minute)}`);
+  }
+
+  getAvailableActivities(hour) {
+    return _find([BREAKFAST, LUNCH, AFTERNOON, EVENING, NIGHT], x => _inRange(hour, x.START, x.END)).ACTIVITIES;
+  }
+
+  getEventTop(hour, minute) {
     return `${this.getRow(hour * 2).prop('offsetTop') + this.getRowHeight() * 2 * minute / 60}px`;
   }
 
-  getEventHeight({ duration }) {
+  getEventHeight(duration) {
     return `${this.getRowHeight() * 2 * duration}px`;
   }
 
-  formatTime({ hour, minute }) {
-    return `${this.get12HourFormat(hour)}:${this.calendar.get2DigitsFormat(minute)}${this.getAmPm(hour)}`;
+  formatTime(hour, minute) {
+    return `${this.get12HourFormat(hour)}:${this.get2DigitsFormat(minute)}${this.getAmPm(hour)}`;
   }
 
   get12HourFormat(hour) {
@@ -38,6 +86,14 @@ export default class CalendarController {
 
   getAmPm(hour) {
     return hour <= 12 ? 'am' : 'pm';
+  }
+
+  get2DigitsFormat(minute) {
+    return _padStart(minute, 2, 0);
+  }
+
+  areOverlapping(eventA, eventB) {
+    return eventA.startTime <= eventB.endTime && eventA.endTime >= eventB.startTime;
   }
 
   resizeOverlappingEvents(events) {
@@ -53,6 +109,26 @@ export default class CalendarController {
     });
   }
 
+  /**
+   * @example: [A, B, C, D, E, F] => [[A, B, C], [D], [E, F]]
+   */
+  getOverlappingEvents(events) {
+    const groups = [];
+    let groupIndex = -1;
+
+    _sortBy(events, this.sortPredicates).forEach((eventA, index, sortedEvents) => {
+      if (!_some(groups[groupIndex], eventA)) {
+        ++groupIndex;
+      }
+
+      groups[groupIndex] = _union(groups[groupIndex] || [],
+        sortedEvents.filter(eventB => this.areOverlapping(eventA, eventB))
+      );
+    });
+
+    return groups;
+  }
+
   getRow(index) {
     return angular.element(document.querySelectorAll('.row')).eq(index);
   }
@@ -61,5 +137,3 @@ export default class CalendarController {
     return this.getRow(0).prop('clientHeight');
   }
 }
-
-CalendarController.$inject = ['Calendar'];

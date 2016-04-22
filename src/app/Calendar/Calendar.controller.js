@@ -43,16 +43,16 @@ export default class CalendarController {
 
   createEvent(hour, minute, duration, title) {
     return {
+      hour,
+      minute,
+      duration,
+      title,
       id: parseInt(_uniqueId),
-      hour: hour,
-      minute: minute,
-      duration: duration,
-      title: title,
       startTime: this.getStartTime(hour, minute),
       endTime: this.getEndTime(hour, minute, duration),
       top: this.getEventTop(hour, minute),
       height: this.getEventHeight(duration),
-      time: this.formatTime(hour, minute)
+      time: this.formatTime(hour, minute),
     };
   }
 
@@ -65,7 +65,8 @@ export default class CalendarController {
   }
 
   getAvailableActivities(hour) {
-    return _find([BREAKFAST, LUNCH, AFTERNOON, EVENING, NIGHT], x => _inRange(hour, x.START, x.END)).ACTIVITIES;
+    return _find([BREAKFAST, LUNCH, AFTERNOON, EVENING, NIGHT],
+      x => _inRange(hour, x.START, x.END)).ACTIVITIES;
   }
 
   getEventTop(hour, minute) {

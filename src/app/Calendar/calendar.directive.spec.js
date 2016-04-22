@@ -6,8 +6,10 @@ describe('Calendar directive', () => {
   let rootScope;
 
   beforeEach(angular.mock.module(sunrise));
-  beforeEach(angular.mock.inject($compile => compile = $compile));
-  beforeEach(angular.mock.inject($rootScope => rootScope = $rootScope));
+  beforeEach(angular.mock.inject(($compile, $rootScope) => {
+    compile = $compile;
+    rootScope = $rootScope;
+  }));
 
   it('should create an event when we click on add event', () => {
     const calendar = new Calendar(compile, rootScope);

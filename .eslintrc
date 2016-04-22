@@ -1,0 +1,14 @@
+{
+  "extends": "airbnb/base",
+  "env": {
+    "browser": true,
+    "jasmine": true,
+  },
+  "globals": {
+    "angular": true,
+  },
+  "rules": {
+    "no-use-before-define": ["error", { "functions": false, "classes": false }],
+    "radix": ["error", "as-needed"],
+  }
+}

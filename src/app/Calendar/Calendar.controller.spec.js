@@ -5,7 +5,9 @@ describe('Calendar controller', () => {
   let CalendarController;
 
   beforeEach(angular.mock.module(sunrise));
-  beforeEach(angular.mock.inject($controller => CalendarController = $controller('CalendarController')));
+  beforeEach(angular.mock.inject($controller => {
+    CalendarController = $controller('CalendarController');
+  }));
 
   it('should make times readable for humans', () => {
     expect(CalendarController.formatTime(12, 5)).toBe('12:05am');
@@ -20,6 +22,7 @@ describe('Calendar controller', () => {
   });
 
   it('should find overlapping events', () => {
+    /* eslint-disable max-len */
     const eventA = { id: 'A', startTime: 1045, endTime: 1245 };
     const eventB = { id: 'B', startTime: 1000, endTime: 1210 }; // starts before A, ends during A
     const eventC = { id: 'C', startTime: 1200, endTime: 1400 }; // starts during A, ends after A
@@ -32,13 +35,18 @@ describe('Calendar controller', () => {
     const eventH = { id: 'H', startTime: 2250, endTime: 2300 }; // starts after each previous event
     const eventI = { id: 'I', startTime: 2260, endTime: 2270 }; // starts during H, ends during H
     const eventJ = { id: 'J', startTime: 2280, endTime: 2320 }; // starts during H but after I, ends after H
+    /* eslint-enable max-len */
 
-    const events = [eventA, eventB, eventC, eventD, eventE, eventF, eventG, eventH, eventI, eventJ];
+    const events = [
+      eventA, eventB, eventC, eventD, eventE,
+      eventF, eventG,
+      eventH, eventI, eventJ,
+    ];
 
     const overlappingEvents = [
       [eventB, eventA, eventD, eventC, eventE],
       [eventF, eventG],
-      [eventH, eventI, eventJ]
+      [eventH, eventI, eventJ],
     ];
 
     expect(CalendarController.getOverlappingEvents(events)).toEqual(overlappingEvents);

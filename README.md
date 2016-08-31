@@ -2,15 +2,14 @@
 
 Side project inspired by Sunrise, the calendar application.
 
-This project uses npm, angular, lodash, bulma, babel, webpack, karma, jasmine and eslint.
-
 [Screenshot](https://raw.githubusercontent.com/ggregoire/sunrise-angular-es6-webpack/master/screenshot.png)
 
 ## Technical notes
-* ES6 with babel (controller with a class, imports/exports, destructuring, arrow functions...)
-* Unit tests for each component (controller and directive)
+* Lodash :heart_eyes_cat:
+* ES6 with Babel (Angular controller with a class, imports/exports, destructuring, arrow functions, etc)
+* Unit tests for each Angular component (controller and directive) with Karma and Jasmine
 * Code coverage when tests are run
-* Design using flexbox
+* CSS3 Flexbox
 
 ## Getting started
 
